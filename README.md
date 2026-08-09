@@ -51,8 +51,4 @@ The current knowledge base contains:
 
 ## Architecture
 
-## 🏗️ RAG Architecture
-
-## 🏗️ RAG Architecture
-
-![alt text](image.png)
+!(image.png)
