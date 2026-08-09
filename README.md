@@ -49,6 +49,25 @@ The current knowledge base contains:
 
 ---
 
-## Architecture
+## 🏗️ RAG Architecture
 
-!(image.png)
+1. **PDF Document Processing**  
+   Official bank MITC PDFs are processed using **PyMuPDF4LLM** for structure-aware text extraction.
+
+2. **Document Chunking**  
+   Extracted documents are split into chunks of **600 characters** with **100-character overlap**.
+
+3. **Semantic Embeddings**  
+   Each chunk is converted into a **384-dimensional vector** using `all-MiniLM-L6-v2`.
+
+4. **Vector Retrieval**  
+   Embeddings are indexed using **FAISS**, followed by **MMR-based retrieval** with `k=6` and `fetch_k=15`.
+
+5. **Cross-Encoder Reranking**  
+   Retrieved candidates are reranked using **BGE Reranker Base**, and the **top 4 contexts** are selected.
+
+6. **Answer Generation**  
+   The selected contexts are passed to **Gemini 3.1 Flash Lite** for context-grounded answer generation.
+
+7. **Final Response**  
+   The system returns the generated answer along with the relevant **source information**.
